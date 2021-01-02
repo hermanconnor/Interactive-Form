@@ -52,7 +52,6 @@ activities.addEventListener('change', activitiesCost);
 design.addEventListener('change', colorSelection);
 // BASIC INFO
 nameInput.addEventListener('keyup', nameValidator);
-nameInput.addEventListener('blur', nameValidator);
 emailInput.addEventListener('keyup', emailValidator);
 jobRole.addEventListener('change', jobSelection);
 // FOR PAYMENT
