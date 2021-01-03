@@ -31,7 +31,7 @@ const paymentCreditCard = paymentMethod.nextElementSibling;
 // Focus first form field when page loads
 nameInput.focus();
 
-// Hide input field when form first loads
+// Hide 'other' input field when form first loads
 otherJobRoleInput.style.display = 'none';
 
 // Disable color selection by default
@@ -172,19 +172,19 @@ function paymentSelection(e) {
 /********** HELPER FUNCTIONS **********/
 // PAYMENT SELECTION
 function paymentChoice(input) {
-  const payment = input.target.value;
-  if (payment === 'paypal') {
-    paypal.style.display = 'block';
-    creditCard.style.display = 'none';
-    bitcoin.style.display = 'none';
-  } else if (payment === 'bitcoin') {
-    bitcoin.style.display = 'block';
-    paypal.style.display = 'none';
-    creditCard.style.display = 'none';
-  } else {
+  const type = input.target.value;
+  if (type === 'credit-card') {
     creditCard.style.display = 'block';
     bitcoin.style.display = 'none';
     paypal.style.display = 'none';
+  } else if (type === 'paypal') {
+    paypal.style.display = 'block';
+    creditCard.style.display = 'none';
+    bitcoin.style.display = 'none';
+  } else {
+    bitcoin.style.display = 'block';
+    paypal.style.display = 'none';
+    creditCard.style.display = 'none';
   }
 }
 
@@ -248,7 +248,6 @@ function cardValidator() {
       errorStyle(cardInput);
     }
   }
-
   return cardIsValid;
 }
 
@@ -318,8 +317,6 @@ function activitiesValidator() {
 
 // SUBMIT FORM HANDLER
 function submitForm(e) {
-  // e.preventDefault();
-
   if (!nameValidator()) {
     e.preventDefault();
     console.log('Invalid Name');
@@ -330,19 +327,21 @@ function submitForm(e) {
     console.log('Make sure your email is correctly formatted');
   }
 
-  if (!zipValidator()) {
-    e.preventDefault();
-    console.log('Check the zip code and make sure it is 5 digits');
-  }
+  if (creditCard.value === 'credit-card') {
+    if (!cardValidator()) {
+      e.preventDefault();
+      console.log('Make sure credit card is 13-16 digits');
+    }
 
-  if (!cardValidator()) {
-    e.preventDefault();
-    console.log('Make sure credit card is 13-16 digits');
-  }
+    if (!zipValidator()) {
+      e.preventDefault();
+      console.log('Check the zip code and make sure it is 5 digits');
+    }
 
-  if (!cvvValidator()) {
-    e.preventDefault();
-    console.log('Check the CVV and make sure it is 3 digits');
+    if (!cvvValidator()) {
+      e.preventDefault();
+      console.log('Check the CVV and make sure it is 3 digits');
+    }
   }
 
   if (!activitiesValidator()) {
