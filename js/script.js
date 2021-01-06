@@ -327,7 +327,7 @@ function submitForm(e) {
     console.log('Make sure your email is correctly formatted');
   }
 
-  if (creditCard.value === 'credit-card') {
+  if (payment.value === 'credit-card') {
     if (!cardValidator()) {
       e.preventDefault();
       console.log('Make sure credit card is 13-16 digits');
